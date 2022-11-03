@@ -35,18 +35,21 @@ public class JdbcTransferDao implements TransferDao {
 
     //see notes on TransferDao about send and request
 
+
+
+
     @Override
-    public void sendTransfer(Transfer transfer, int accountFromId, int accountToId, BigDecimal amount) {
+    public void sendTransfer(Transfer transfer) {
         String sql = "Insert into transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
                 "Values (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, SEND_TRANSFER_TYPE_ID, PENDING_TRANSFER_STATUS_ID, accountToId, amount);
+        jdbcTemplate.update(sql, SEND_TRANSFER_TYPE_ID, PENDING_TRANSFER_STATUS_ID, transfer.getAccountFromId(), transfer.getAccountToId(), transfer.getAmount());
     }
 
     @Override
-    public void requestTransfer(Transfer transfer, int accountFromId, int accountToId, BigDecimal amount) {
+    public void requestTransfer(Transfer transfer) {
         String sql = "Insert into transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
                 "Values (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, REQUEST_TRANSFER_TYPE_ID, PENDING_TRANSFER_STATUS_ID, accountToId, amount);
+        jdbcTemplate.update(sql, REQUEST_TRANSFER_TYPE_ID, PENDING_TRANSFER_STATUS_ID, transfer.getAccountFromId(), transfer.getAccountToId(), transfer.getAmount());
     }
 
     private Transfer mapRowToAccount (SqlRowSet rs){

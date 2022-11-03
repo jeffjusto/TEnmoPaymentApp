@@ -15,7 +15,7 @@ public interface TransferDao {
     //also, if we do pass a transfer object as the parameter, we can combine send and request into one method as just "addTransfer"
     // since the Transfer will have a transfer_type_id
 
-    void sendTransfer(Transfer transfer, int accountFromId, int accountToId, BigDecimal amount);
+    void sendTransfer(Transfer transfer);
 
-    void requestTransfer(Transfer transfer, int accountFromId, int accountToId, BigDecimal amount);
+    void requestTransfer(Transfer transfer);
 }

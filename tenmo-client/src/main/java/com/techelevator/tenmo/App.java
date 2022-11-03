@@ -92,13 +92,13 @@ public class App {
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-        System.out.println("Your current balance is: $" + accountService.getBalance();
+        System.out.println("Your current balance is: $" + accountService.getBalance());
 		
 	}
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-        List<Transfer> transferHistory =
+       // List<Transfer> transferHistory =
 		
 	}
 

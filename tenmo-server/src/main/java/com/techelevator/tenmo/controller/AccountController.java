@@ -49,8 +49,8 @@ public class AccountController {
             return account;
         }
     }
-    @RequestMapping(path = "/account/{accountId}/balance", method = RequestMethod.GET)
-    public BigDecimal getBalance(@PathVariable int accountId){
+    @RequestMapping(path = "/account/balance", method = RequestMethod.GET)
+    public BigDecimal getBalance(){
         Account account = accountDao.getAccountByAccountId(accountId);
         if (account == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account Not Found");

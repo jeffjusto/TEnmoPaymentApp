@@ -53,7 +53,6 @@ import java.math.BigDecimal;
 
     @Override
     public Account getAccountByUserId(int userId) {
-        public Account getAccountByAccountId ( int userId){
             Account account = null;
 
             String sql = "SELECT account_id, user_id, balance FROM account WHERE user_id = ?;";
@@ -64,7 +63,7 @@ import java.math.BigDecimal;
             }
             return account;
         }
-    }
+
 
 
         @Override

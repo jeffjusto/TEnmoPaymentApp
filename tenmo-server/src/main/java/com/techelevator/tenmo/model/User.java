@@ -69,7 +69,9 @@ public class User {
    public void setAuthorities(String authorities) {
       String[] roles = authorities.split(",");
       for(String role : roles) {
-         this.authorities.add(new Authority("ROLE_" + role));
+         Authority authority = new Authority("ROLE_" + role);
+         this.authorities.add(authority);
+
       }
    }
 
