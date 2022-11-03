@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.math.BigDecimal;
+import java.security.Principal;
 
 
 @PreAuthorize("isAuthenticated()")
@@ -51,12 +52,13 @@ public class AccountController {
     }
     @RequestMapping(path = "/account/balance", method = RequestMethod.GET)
     public BigDecimal getBalance(){
-        Account account = accountDao.getAccountByAccountId(accountId);
-        if (account == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account Not Found");
-        } else {
-            return account.getBalance();
-        }
+            Account account = accountDao.getAccount();
+            if (account == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account Not Found");
+            } else {
+                return account.getBalance();
+            }
+
     }
 
 

@@ -98,7 +98,13 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-       // List<Transfer> transferHistory =
+        Transfer[] transfers = accountService.viewTransferHistory();
+        System.out.println("Your previous transactions: ");
+        if (transfers != null) {
+            for (Transfer transfer : transfers) {
+                System.out.println(transfer);
+            }
+        }
 		
 	}
 

@@ -8,13 +8,13 @@ import java.math.BigDecimal;
 
 public interface AccountDao {
 
-    Account getAccount() throws AccountNotFoundException;
+    Account getAccount();
 
     Account getAccountByAccountId(int AccountId);
 
     Account getAccountByUserId(int userId);
 
-    BigDecimal getBalance(User user);
+    BigDecimal getBalance(int accountId);
 
     /*
     changed the parameters below to make more sense of adding and subtracting amounts of accounts and probably not

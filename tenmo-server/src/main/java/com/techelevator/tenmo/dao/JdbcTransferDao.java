@@ -8,6 +8,8 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JdbcTransferDao implements TransferDao {
     private final JdbcTemplate jdbcTemplate;
@@ -50,6 +52,17 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "Insert into transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
                 "Values (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, REQUEST_TRANSFER_TYPE_ID, PENDING_TRANSFER_STATUS_ID, transfer.getAccountFromId(), transfer.getAccountToId(), transfer.getAmount());
+    }
+
+    public List<Transfer> getTransferHistory(int user_id){
+        List<Transfer> transfers = new ArrayList<>();
+        String sql = "SELECT * FROM transfer where user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
+        while(results.next()){
+            transfers.add(mapRowToAccount(results));
+        }
+        return transfers;
+
     }
 
     private Transfer mapRowToAccount (SqlRowSet rs){

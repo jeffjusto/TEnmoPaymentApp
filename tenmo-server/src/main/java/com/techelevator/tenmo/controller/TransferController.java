@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class TransferController {
     private TransferDao transferDao;
@@ -24,6 +25,11 @@ public class TransferController {
     @RequestMapping (path = "/transfer/request", method = RequestMethod.POST)
     public void requestTransfer (@RequestBody Transfer transfer){
         transferDao.requestTransfer(transfer);
+    }
+
+    @RequestMapping (path = "transfer/all", method = RequestMethod.GET)
+    public List<Transfer> getTransferHistory(int user_id) {
+        return transferDao.getTransferHistory(user_id);
     }
 
 

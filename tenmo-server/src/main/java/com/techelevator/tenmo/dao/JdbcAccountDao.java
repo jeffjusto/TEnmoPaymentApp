@@ -2,6 +2,7 @@ package com.techelevator.tenmo.dao;
 
 
 import com.techelevator.tenmo.model.Account;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -69,11 +70,11 @@ import java.math.BigDecimal;
         @Override
         public BigDecimal getBalance ( int accountId){
             BigDecimal balance = null;
-            String sql = "SELECT account_id, user_id, balance FROM account WHERE user_id = ?;";
-
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, accountId);
-            if (result.next()) {
-                balance = mapRowToAccount(result).getBalance();
+            String sql = "SELECT balance FROM account WHERE account_id = ?;";
+            try {
+                balance = jdbcTemplate.queryForObject(sql, BigDecimal.class, accountId);
+            } catch (NullPointerException | EmptyResultDataAccessException e){
+                System.out.println("Invalid");
             }
             return balance;
         }
