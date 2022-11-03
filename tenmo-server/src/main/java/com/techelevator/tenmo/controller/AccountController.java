@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.math.BigDecimal;
 
 
@@ -25,7 +26,7 @@ public class AccountController {
     }
 
     @RequestMapping(path = "/account", method = RequestMethod.GET)
-    public Account getAccount(){
+    public Account getAccount() throws AccountNotFoundException {
         return accountDao.getAccount();
     }
 
@@ -57,9 +58,6 @@ public class AccountController {
             return account.getBalance();
         }
     }
-    @RequestMapping(path = "/account/")
-
-
 
 
 }
