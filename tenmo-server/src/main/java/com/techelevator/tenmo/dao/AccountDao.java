@@ -9,18 +9,18 @@ public interface AccountDao {
 
     Account getAccount() throws AccountNotFoundException;
 
+    Account getAccountByAccountId(int AccountId);
+
     Account getAccountByUserId(int userId);
 
-    Account getAccountByAccountId(int accountId);
-
-    BigDecimal getBalance(int accountId);
+    BigDecimal getBalance(int userId);
 
     /*
     changed the parameters below to make more sense of adding and subtracting amounts of accounts and probably not
     necessary to add to the AccountController
      */
 
-    BigDecimal addToBalanceByAccountId(int accountId, BigDecimal amount);
+    BigDecimal addToBalanceByAccountId(int userId, BigDecimal amount);
 
-    BigDecimal subtractFromBalanceByAccountId(int accountId, BigDecimal amount);
+    BigDecimal subtractFromBalanceByAccountId(int userId, BigDecimal amount);
 }
