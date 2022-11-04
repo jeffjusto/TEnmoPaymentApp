@@ -3,9 +3,7 @@ package com.techelevator.tenmo;
 import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.UserCredentials;
-import com.techelevator.tenmo.services.AccountService;
-import com.techelevator.tenmo.services.AuthenticationService;
-import com.techelevator.tenmo.services.ConsoleService;
+import com.techelevator.tenmo.services.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -17,6 +15,8 @@ public class App {
     private final ConsoleService consoleService = new ConsoleService();
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
     private AccountService accountService = new AccountService(API_BASE_URL);
+    private TransferService transferService = new TransferService(API_BASE_URL);
+    private UserService userService = new UserService(API_BASE_URL);
 
     private AuthenticatedUser currentUser;
 
@@ -61,8 +61,13 @@ public class App {
     private void handleLogin() {
         UserCredentials credentials = consoleService.promptForCredentials();
         currentUser = authenticationService.login(credentials);
+        userService.setCurrentUser(currentUser.getUser());
         if (currentUser == null) {
             consoleService.printErrorMessage();
+        } else {
+            userService.setAuthToken(currentUser.getToken());
+            transferService.setAuthToken(currentUser.getToken());
+            accountService.setAuthToken(currentUser.getToken());
         }
     }
 
@@ -92,13 +97,13 @@ public class App {
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-        System.out.println("Your current balance is: $" + accountService.getBalance());
+        System.out.println("Your current balance is: $" + accountService.getBalance(userService.getAccountId()));
 		
 	}
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-        Transfer[] transfers = accountService.viewTransferHistory();
+        Transfer[] transfers = transferService.viewTransferHistory();
         System.out.println("Your previous transactions: ");
         if (transfers != null) {
             for (Transfer transfer : transfers) {

@@ -28,27 +28,18 @@ public class AccountService {
         this.baseUrl = url;
     }
 
-    public BigDecimal getBalance() {
+    public BigDecimal getBalance(int accountId) {
         BigDecimal balance = null;
         try {
-            ResponseEntity<Account> response = restTemplate.exchange(baseUrl + "/account/balance", HttpMethod.GET, makeAuthEntity(), Account.class);
-            balance = response.getBody().getBalance();
+            ResponseEntity<BigDecimal> response = restTemplate.exchange(baseUrl + "/account/balance/" +accountId, HttpMethod.GET, makeAuthEntity(), BigDecimal.class);
+            balance = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
         return balance;
     }
 
-    public Transfer[] viewTransferHistory(){
-        Transfer[] transfers = null;
-        try {
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(baseUrl +"/transfer/all", HttpMethod.GET, makeAuthEntity(), Transfer[].class);
-            transfers = response.getBody();
-        } catch (RestClientResponseException | ResourceAccessException e) {
-            BasicLogger.log(e.getMessage());
-        }
-       return transfers;
-    }
+
 
 
 
