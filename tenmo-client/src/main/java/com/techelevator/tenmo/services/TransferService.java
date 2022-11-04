@@ -34,7 +34,11 @@ public class TransferService {
         return transfers;
     }
 
+    //add viewPendingRequests
 
+    //sendBucks
+
+    //requestBucks
 
 
 
