@@ -8,9 +8,7 @@ import java.math.BigDecimal;
 
 public interface AccountDao {
 
-    Account getAccount();
-
-    Account getAccountByAccountId(int AccountId);
+    Account getAccount(int accountId);
 
     Account getAccountByUserId(int userId);
 

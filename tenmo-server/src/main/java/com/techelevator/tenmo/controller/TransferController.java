@@ -5,10 +5,13 @@ import com.techelevator.tenmo.model.Transfer;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
+@RestController
 public class TransferController {
     private TransferDao transferDao;
 

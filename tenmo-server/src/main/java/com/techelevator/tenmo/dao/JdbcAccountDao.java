@@ -27,30 +27,19 @@ import java.math.BigDecimal;
          */
 
     @Override
-    public Account getAccount() {
+    public Account getAccount(int accountId) {
         Account account = null;
 
-        String sql = "SELECT account_id, user_id, balance FROM account;";
+        String sql = "SELECT account_id, user_id, balance FROM account where account_id = ?;";
 
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, accountId);
         if (result.next()) {
             account = mapRowToAccount(result);
         }
         return account;
     }
 
-    @Override
-    public Account getAccountByAccountId(int AccountId) {
-        Account account = null;
 
-        String sql = "SELECT account_id, user_id, balance FROM account WHERE account_id = ?;";
-
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, AccountId);
-        if (result.next()) {
-            account = mapRowToAccount(result);
-        }
-        return account;
-    }
 
     @Override
     public Account getAccountByUserId(int userId) {
