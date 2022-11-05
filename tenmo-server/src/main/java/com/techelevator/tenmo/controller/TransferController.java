@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-public class TransferController {
+public class  TransferController {
     private TransferDao transferDao;
 
     public TransferController(TransferDao transferDao) {

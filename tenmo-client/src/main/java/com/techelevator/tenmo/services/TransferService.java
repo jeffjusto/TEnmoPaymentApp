@@ -1,6 +1,5 @@
 package com.techelevator.tenmo.services;
 
-import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
@@ -46,6 +45,17 @@ public class TransferService {
     }
 
     //sendBucks
+    public Transfer sendTransfer() {
+        Transfer transfer = null;
+        try{
+            transfer = restTemplate.exchange(baseUrl +"/transfer/send", HttpMethod.GET, makeAuthEntity(), Transfer.class).getBody();
+        } catch (RestClientResponseException | ResourceAccessException e) {
+            BasicLogger.log(e.getMessage());
+        }
+        return transfer;
+
+        }
+
 
     //requestBucks
 

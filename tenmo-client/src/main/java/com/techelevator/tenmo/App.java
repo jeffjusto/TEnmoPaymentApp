@@ -5,6 +5,7 @@ import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.*;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -130,36 +131,24 @@ public class App {
 	}
 
 	private void sendBucks() {
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
         Map<Integer, String> users = userService.listUsers();
-        for(Map.Entry<Integer, String> user: users.entrySet()) {
+        for (Map.Entry<Integer, String> user : users.entrySet()) {
             System.out.printf("%-5s %-20s \n", user.getKey(), user.getValue());
         }
+        System.out.println("Please choose one from user id's: ");
+        Scanner sc = new Scanner(System.in);
+        int userId = sc.nextInt();
+        if (userId != currentUser.getUser().getId()) {
+            consoleService.promptForBigDecimal("Please choose an amount in decimal form (ex. 20.49):");
+                transferService.sendTransfer();
+                System.out.println("Transfer sent!");
+            } else {
+                System.out.println("Invalid");
+            }
+        }
 
-
-
-		 /*
-            method to MAP? displayUsernames and userids()
-                "have method loop map to put username and userId"
-
-		  */
-            System.out.println("Please choose one from user id's: ");
-               try{
-                Scanner sc = new Scanner(System.in);
-                int choice = sc.nextInt();
-                if(users.containsKey(choice) && choice != currentUser.getUser().getId()) {
-                    int fromUser = currentUser.getUser().getId();
-                    // userService.sendTransfer()?
-                    System.out.println("Transfer Sent");
-                }
-                } catch (Exception e) {
-                   System.out.print("Invalid");
-
-               }
-
-
-    }
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub
