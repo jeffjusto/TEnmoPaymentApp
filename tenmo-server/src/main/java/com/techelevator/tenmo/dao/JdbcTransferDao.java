@@ -67,7 +67,18 @@ public class JdbcTransferDao implements TransferDao {
 
     }
 
-    // Add getPendingTransfers
+
+    public List<Transfer> getPendingTransfers(int user_id){
+        List<Transfer> transfers = new ArrayList<>();
+        String sql = "SELECT * FROM transfer where user_id = ? AND transfer_status_id = 1";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
+        while(results.next()){
+            transfers.add(mapRowToAccount(results));
+        }
+        return transfers;
+
+    }
+
 
     private Transfer mapRowToAccount (SqlRowSet rs){
         Transfer transfer = new Transfer();

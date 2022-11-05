@@ -114,6 +114,14 @@ public class App {
 	}
 
 	private void viewPendingRequests() {
+        Transfer[] transfers = transferService.viewPendingTransfers();
+        System.out.println("Current pending transactions: ");
+        if (transfers != null) {
+            for (Transfer transfer : transfers) {
+                System.out.println(transfer);
+            }
+        }
+
 		// TODO Auto-generated method stub
 
 	}

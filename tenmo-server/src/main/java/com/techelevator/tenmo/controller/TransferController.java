@@ -35,6 +35,10 @@ public class TransferController {
         return transferDao.getTransferHistory(user_id);
     }
 
+    @RequestMapping (path = "transfer/pending", method = RequestMethod.GET)
+    public List<Transfer> getPendingTransfers(int user_id) {
+        return transferDao.getPendingTransfers(user_id);
+    }
 
 
 

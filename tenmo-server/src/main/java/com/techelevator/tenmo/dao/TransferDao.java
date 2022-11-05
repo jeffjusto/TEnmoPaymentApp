@@ -22,4 +22,6 @@ public interface TransferDao {
     void requestTransfer(Transfer transfer);
 
     List<Transfer> getTransferHistory(int user_id);
+
+    List<Transfer> getPendingTransfers(int user_id);
 }
