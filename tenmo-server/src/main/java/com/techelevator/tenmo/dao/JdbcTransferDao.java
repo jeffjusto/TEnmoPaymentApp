@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +59,9 @@ public class JdbcTransferDao implements TransferDao {
         jdbcTemplate.update(sql, REQUEST_TRANSFER_TYPE_ID, PENDING_TRANSFER_STATUS_ID, transfer.getAccountFromId(), transfer.getAccountToId(), transfer.getAmount());
     }
 
-    public List<Transfer> getTransferHistory(int account_id){
+    public List<Transfer> getTransferHistory(Principal principal){
         List<Transfer> transfers = new ArrayList<>();
+        int account_id = getAccountIdFromUsername(principal.getName());
         String sql = "SELECT * FROM transfer where account_to = ? OR account_from = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, account_id, account_id);
         while(results.next()){
@@ -70,10 +72,9 @@ public class JdbcTransferDao implements TransferDao {
     }
 
 
-    public List<Transfer> getPendingTransfers(int user_id){
+    public List<Transfer> getPendingTransfers(Principal principal){
         List<Transfer> transfers = new ArrayList<>();
-        Account account = accountDao.getAccountByUserId(user_id);
-        int account_id = account.getAccountId();
+        int account_id = getAccountIdFromUsername(principal.getName());
         String sql = "SELECT * FROM transfer where transfer_status_id = 1 AND (account_to = ? OR account_from = ?)";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, account_id, account_id);
         while(results.next()){
