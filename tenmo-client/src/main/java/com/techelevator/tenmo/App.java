@@ -115,13 +115,28 @@ public class App {
 
 	private void viewPendingRequests() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
-		
-	}
+		 /*
+            method to MAP? displayUsernames and userids()
+                "have method loop map to put username and userId"
+            System.out.println("Please choose one from user id's: "
+               try{
+                Scanner sc = new Scanner(System.in);
+                int choice = sc.nextInt();
+                if(map.containsKey(choice) && choice != userService.getId()){
+                int fromUser = userService.get()
+                userService.sendTransfer()?
+                System.out.println("Transfer Sent")
+                } catch (Exception e){
+                System.out.print("Invaild");
+               
+         */
+
+    }
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub
