@@ -6,7 +6,10 @@ import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class App {
 
@@ -128,27 +131,46 @@ public class App {
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
+
+        Map<Integer, String> users = userService.listUsers();
+        for(Map.Entry<Integer, String> user: users.entrySet()) {
+            System.out.printf("%-5s %-20s \n", user.getKey(), user.getValue());
+        }
+
+
+
 		 /*
             method to MAP? displayUsernames and userids()
                 "have method loop map to put username and userId"
-            System.out.println("Please choose one from user id's: "
+
+		  */
+            System.out.println("Please choose one from user id's: ");
                try{
                 Scanner sc = new Scanner(System.in);
                 int choice = sc.nextInt();
-                if(map.containsKey(choice) && choice != userService.getId()){
-                int fromUser = userService.get()
-                userService.sendTransfer()?
-                System.out.println("Transfer Sent")
-                } catch (Exception e){
-                System.out.print("Invaild");
-               
-         */
+                if(users.containsKey(choice) && choice != currentUser.getUser().getId()) {
+                    int fromUser = currentUser.getUser().getId();
+                    // userService.sendTransfer()?
+                    System.out.println("Transfer Sent");
+                }
+                } catch (Exception e) {
+                   System.out.print("Invalid");
+
+               }
+
 
     }
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub
+
+        Map<Integer, String> users = userService.listUsers();
+        for(Map.Entry<Integer, String> user: users.entrySet()) {
+            System.out.printf("%-5s %-20s \n", user.getKey(), user.getValue());
+        }
 		
 	}
+
+
 
 }

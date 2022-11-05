@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserService {
 
@@ -49,6 +51,17 @@ public class UserService {
 
 
         return accountId;
+    }
+
+    public Map<Integer, String> listUsers(){
+        Map<Integer, String> map = new HashMap<>();
+        ResponseEntity<Map> response = restTemplate.exchange(baseUrl + "/tenmo_user/list", HttpMethod.GET, makeAuthEntity(), Map.class);
+        if (response.hasBody()){
+            map = response.getBody();
+        }
+        return map;
+
+
     }
 
     private HttpEntity<Void> makeAuthEntity() {

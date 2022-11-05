@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -39,6 +40,11 @@ public class UserController {
     @RequestMapping (path = "/tenmo_user/create", method = RequestMethod.POST)
     public boolean create (String username, String password){
         return userDao.create(username, password);
+    }
+
+    @RequestMapping (path = "/tenmo_user/list", method = RequestMethod.GET)
+    public Map<Integer, String> listUsers(){
+        return userDao.listUsers();
     }
 
 

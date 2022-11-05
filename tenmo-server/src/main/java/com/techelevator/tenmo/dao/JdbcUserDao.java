@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class JdbcUserDao implements UserDao {
@@ -57,6 +59,19 @@ public class JdbcUserDao implements UserDao {
         while (results.next()) {
             User user = mapRowToUser(results);
             users.add(user);
+        }
+
+        return users;
+    }
+
+    @Override
+    public Map<Integer, String> listUsers() {
+        Map<Integer, String> users = new HashMap();
+        String sql = "SELECT user_id, username FROM tenmo_user";
+
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql);
+        while (rs.next()) {
+            users.put(rs.getInt("user_id"), rs.getString("username"));
         }
 
         return users;
