@@ -45,10 +45,9 @@ public class TransferService {
     }
 
     //sendBucks
-    public Transfer sendTransfer() {
-        Transfer transfer = null;
+    public Transfer sendTransfer(Transfer transfer) {
         try{
-            transfer = restTemplate.exchange(baseUrl +"/transfer/send", HttpMethod.GET, makeAuthEntity(), Transfer.class).getBody();
+            transfer = restTemplate.postForObject(baseUrl +"/transfer/send", makeTransferEntity(transfer), Transfer.class);
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }

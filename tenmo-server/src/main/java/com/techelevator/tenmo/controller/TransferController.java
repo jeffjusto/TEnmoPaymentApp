@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -38,6 +39,10 @@ public class  TransferController {
     @RequestMapping (path = "transfer/pending", method = RequestMethod.GET)
     public List<Transfer> getPendingTransfers(int user_id) {
         return transferDao.getPendingTransfers(user_id);
+    }
+
+    private int getAccountIdFromUsername(Principal principal){
+        return transferDao.getAccountIdFromUsername(principal.getName());
     }
 
 

@@ -24,4 +24,6 @@ public interface TransferDao {
     List<Transfer> getTransferHistory(int user_id);
 
     List<Transfer> getPendingTransfers(int user_id);
+
+    int getAccountIdFromUsername (String string);
 }

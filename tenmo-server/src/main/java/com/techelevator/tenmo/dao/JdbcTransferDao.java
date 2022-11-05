@@ -18,9 +18,11 @@ public class JdbcTransferDao implements TransferDao {
     private final int REQUEST_TRANSFER_TYPE_ID = 1;
     private final int SEND_TRANSFER_TYPE_ID = 2;
     private final int PENDING_TRANSFER_STATUS_ID = 1;
+    AccountDao accountDao;
 
     public JdbcTransferDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        accountDao = new JdbcAccountDao(jdbcTemplate);
     }
 
 
@@ -56,10 +58,10 @@ public class JdbcTransferDao implements TransferDao {
         jdbcTemplate.update(sql, REQUEST_TRANSFER_TYPE_ID, PENDING_TRANSFER_STATUS_ID, transfer.getAccountFromId(), transfer.getAccountToId(), transfer.getAmount());
     }
 
-    public List<Transfer> getTransferHistory(int user_id){
+    public List<Transfer> getTransferHistory(int account_id){
         List<Transfer> transfers = new ArrayList<>();
-        String sql = "SELECT * FROM transfer where user_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
+        String sql = "SELECT * FROM transfer where account_to = ? OR account_from = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, account_id, account_id);
         while(results.next()){
             transfers.add(mapRowToAccount(results));
         }
@@ -70,8 +72,10 @@ public class JdbcTransferDao implements TransferDao {
 
     public List<Transfer> getPendingTransfers(int user_id){
         List<Transfer> transfers = new ArrayList<>();
-        String sql = "SELECT * FROM transfer where user_id = ? AND transfer_status_id = 1";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
+        Account account = accountDao.getAccountByUserId(user_id);
+        int account_id = account.getAccountId();
+        String sql = "SELECT * FROM transfer where transfer_status_id = 1 AND (account_to = ? OR account_from = ?)";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, account_id, account_id);
         while(results.next()){
             transfers.add(mapRowToAccount(results));
         }
@@ -89,5 +93,12 @@ public class JdbcTransferDao implements TransferDao {
         transfer.setAccountToId(rs.getInt("account_to"));
         transfer.setAmount(rs.getBigDecimal("amount"));
         return transfer;
+    }
+
+    public int getAccountIdFromUsername (String string){
+        int accountId;
+        String sql = "Select account_id from account join tenmo_user on tenmo_user.user_id = account.user_id where username = ?";
+        accountId = jdbcTemplate.queryForObject(sql, int.class);
+        return accountId;
     }
 }

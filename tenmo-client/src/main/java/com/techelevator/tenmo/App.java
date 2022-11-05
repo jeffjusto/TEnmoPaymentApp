@@ -141,13 +141,24 @@ public class App {
         Scanner sc = new Scanner(System.in);
         int userId = sc.nextInt();
         if (userId != currentUser.getUser().getId()) {
-            consoleService.promptForBigDecimal("Please choose an amount in decimal form (ex. 20.49):");
-                transferService.sendTransfer();
+            BigDecimal amount = consoleService.promptForBigDecimal("Please choose an amount in decimal form (ex. 20.49):");
+            Transfer transfer = new Transfer();
+            transfer.setTransferTypeId(2);
+            transfer.setAmount(amount);
+            transfer.setAccountTo(userId);
+            transfer.setAccountFrom(userService.getAccountId());
+            transfer.setTransferStatusId(1);
+            if (accountService.getBalance(userService.getAccountId()).compareTo(amount) >= 0){
+                transferService.sendTransfer(transfer);
                 System.out.println("Transfer sent!");
             } else {
-                System.out.println("Invalid");
+                System.out.println("Insufficient Funds");
             }
+
+        } else {
+            System.out.println("Invalid, you cannot send money to yourself");
         }
+    }
 
 
 	private void requestBucks() {
