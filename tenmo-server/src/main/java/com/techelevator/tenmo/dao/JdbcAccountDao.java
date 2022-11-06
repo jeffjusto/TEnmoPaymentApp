@@ -45,7 +45,7 @@ import java.math.BigDecimal;
     public Account getAccountByUserId(int userId) {
             Account account = null;
 
-            String sql = "SELECT account_id FROM account WHERE user_id = ?;";
+            String sql = "SELECT * FROM account WHERE user_id = ?;";
 
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
             if (result.next()) {
