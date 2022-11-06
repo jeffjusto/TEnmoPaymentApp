@@ -35,10 +35,10 @@ public class UserService {
         this.currentUser = currentUser;
     }
 
-    public int getAccountId (){
+    public int getAccountId (int userId){
         int accountId;
 
-        ResponseEntity<Account> response = restTemplate.exchange(baseUrl + "/account/user/" + currentUser.getId(), HttpMethod.GET, makeAuthEntity(), Account.class);
+        ResponseEntity<Account> response = restTemplate.exchange(baseUrl + "/account/user/" + userId, HttpMethod.GET, makeAuthEntity(), Account.class);
         if (response.hasBody()) {
             accountId = response.getBody().getAccountId();
         } else {
@@ -52,6 +52,8 @@ public class UserService {
 
         return accountId;
     }
+
+
 
     public Map<Integer, String> listUsers(){
         Map<Integer, String> map = new HashMap<>();

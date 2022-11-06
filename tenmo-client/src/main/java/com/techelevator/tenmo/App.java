@@ -101,7 +101,7 @@ public class App {
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-        System.out.println("Your current balance is: $" + accountService.getBalance(userService.getAccountId()));
+        System.out.println("Your current balance is: $" + accountService.getBalance(userService.getAccountId(currentUser.getUser().getId())));
 		
 	}
 
@@ -145,8 +145,8 @@ public class App {
             Transfer transfer = new Transfer();
             transfer.setTransferTypeId(2);
             transfer.setAmount(amount);
-            transfer.setAccountTo(userId);
-            transfer.setAccountFrom(userService.getAccountId());
+            transfer.setAccountTo(userService.getAccountId(userId));
+            transfer.setAccountFrom(userService.getAccountId(currentUser.getUser().getId()));
             transfer.setTransferStatusId(1);
             transferService.sendTransfer(transfer);
             System.out.println("Transfer sent!");
