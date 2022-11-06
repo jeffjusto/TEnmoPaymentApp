@@ -70,7 +70,7 @@ import java.math.BigDecimal;
 
         @Override
         public BigDecimal addToBalanceByAccountId ( int accountId, BigDecimal amount){
-            String sql = "UPDATE accounts " +
+            String sql = "UPDATE account " +
                     "SET balance = balance + " + amount +
                     " WHERE account_id = " + accountId + ";";
             //try catch block here?
@@ -79,7 +79,7 @@ import java.math.BigDecimal;
 
         @Override
         public BigDecimal subtractFromBalanceByAccountId ( int accountId, BigDecimal amount){
-            String sql = "UPDATE accounts " +
+            String sql = "UPDATE account " +
                     "SET balance = balance - " + amount +
                     " WHERE account_id = " + accountId + ";";
             //try catch block here?

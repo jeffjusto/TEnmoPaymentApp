@@ -147,7 +147,7 @@ public class App {
             transfer.setAmount(amount);
             transfer.setAccountTo(userService.getAccountId(userId));
             transfer.setAccountFrom(userService.getAccountId(currentUser.getUser().getId()));
-            transfer.setTransferStatusId(1);
+            transfer.setTransferStatusId(2);
             transferService.sendTransfer(transfer);
             System.out.println("Transfer sent!");
         } else {
