@@ -2,13 +2,9 @@ package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.dao.TransferDao;
 import com.techelevator.tenmo.model.Transfer;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -20,7 +16,7 @@ public class  TransferController {
         this.transferDao = transferDao;
     }
 
-
+    @ResponseStatus (HttpStatus.CREATED)
     @RequestMapping (path = "/transfer/send", method = RequestMethod.POST)
     public void sendTransfer (@RequestBody Transfer transfer){
         transferDao.sendTransfer(transfer);
