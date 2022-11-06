@@ -70,6 +70,14 @@ public class Transfer {
         this.amount = amount;
     }
 
+    public Transfer(int transferTypeId, int transferStatusId, int accountFrom, int accountTo, BigDecimal amount) {
+        this.transferTypeId = transferTypeId;
+        this.transferStatusId = transferStatusId;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.amount = amount;
+    }
+
     @Override
     public String toString(){
         return "\nTransfer ID: " + transferId + "\nTransfer Type ID: " + transferTypeId + "\nTransfer Status ID: " + transferStatusId + "\nAccount From ID: " + accountFrom + "\nAccount to ID:  " + accountTo + "\nAmount : $ " + amount + "\n";

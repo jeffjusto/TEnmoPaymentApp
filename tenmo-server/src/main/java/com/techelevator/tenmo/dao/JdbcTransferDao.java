@@ -1,14 +1,10 @@
 package com.techelevator.tenmo.dao;
 
-import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +30,7 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "SELECT * from transfer where transfer_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
         if(results.next()){
-            transfer = mapRowToAccount(results);
+            transfer = mapRowToTransfer(results);
         }
 
         return transfer;
@@ -65,7 +61,7 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "SELECT * FROM transfer where account_to = ? OR account_from = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, account_id, account_id);
         while(results.next()){
-            transfers.add(mapRowToAccount(results));
+            transfers.add(mapRowToTransfer(results));
         }
         return transfers;
 
@@ -78,14 +74,14 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "SELECT * FROM transfer where transfer_status_id = 1 AND (account_to = ? OR account_from = ?)";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, account_id, account_id);
         while(results.next()){
-            transfers.add(mapRowToAccount(results));
+            transfers.add(mapRowToTransfer(results));
         }
         return transfers;
 
     }
 
 
-    private Transfer mapRowToAccount (SqlRowSet rs){
+    private Transfer mapRowToTransfer(SqlRowSet rs){
         Transfer transfer = new Transfer();
         transfer.setTransferId(rs.getInt("transfer_id"));
         transfer.setTransferTypeId(rs.getInt("transfer_type_id"));
