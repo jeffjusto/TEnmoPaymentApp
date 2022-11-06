@@ -71,8 +71,14 @@ import java.math.BigDecimal;
         @Override
         public BigDecimal addToBalanceByAccountId ( int accountId, BigDecimal amount){
             String sql = "UPDATE account " +
-                    "SET balance = balance + " + amount +
-                    " WHERE account_id = " + accountId + ";";
+                    "SET balance = balance + ?" +
+                    " WHERE account_id = ?;";
+
+            try {
+                jdbcTemplate.update(sql, amount, accountId);
+            } catch (Exception e) {
+                System.out.println("Invalid");
+            }
             //try catch block here?
             return getBalance(accountId);
         }
@@ -80,8 +86,14 @@ import java.math.BigDecimal;
         @Override
         public BigDecimal subtractFromBalanceByAccountId ( int accountId, BigDecimal amount){
             String sql = "UPDATE account " +
-                    "SET balance = balance - " + amount +
-                    " WHERE account_id = " + accountId + ";";
+                    "SET balance = balance - ?" +
+                    " WHERE account_id = ?;";
+
+            try {
+                jdbcTemplate.update(sql, amount, accountId);
+            } catch (Exception e){
+                System.out.println("Invalid");
+            }
             //try catch block here?
             return getBalance(accountId);
         }
