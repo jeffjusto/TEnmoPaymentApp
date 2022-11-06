@@ -148,17 +148,13 @@ public class App {
             transfer.setAccountTo(userId);
             transfer.setAccountFrom(userService.getAccountId());
             transfer.setTransferStatusId(1);
-            if (accountService.getBalance(userService.getAccountId()).compareTo(amount) >= 0){
-                transferService.sendTransfer(transfer);
-                System.out.println("Transfer sent!");
-            } else {
-                System.out.println("Insufficient Funds");
-            }
-
+            transferService.sendTransfer(transfer);
+            System.out.println("Transfer sent!");
         } else {
             System.out.println("Invalid, you cannot send money to yourself");
         }
     }
+
 
 
 	private void requestBucks() {
