@@ -32,12 +32,12 @@ public class  TransferController {
     }
 
     @RequestMapping (path = "transfer/all", method = RequestMethod.GET)
-    public List<Transfer> getTransferHistory(@RequestBody Principal principal) {
+    public List<Transfer> getTransferHistory(Principal principal) {
         return transferDao.getTransferHistory(principal);
     }
 
     @RequestMapping (path = "transfer/pending", method = RequestMethod.GET)
-    public List<Transfer> getPendingTransfers(@RequestBody Principal principal) {
+    public List<Transfer> getPendingTransfers(Principal principal) {
         return transferDao.getPendingTransfers(principal);
     }
 

@@ -99,7 +99,7 @@ public class JdbcTransferDao implements TransferDao {
     public int getAccountIdFromUsername (String string){
         int accountId;
         String sql = "Select account_id from account join tenmo_user on tenmo_user.user_id = account.user_id where username = ?";
-        accountId = jdbcTemplate.queryForObject(sql, int.class);
+        accountId = jdbcTemplate.queryForObject(sql, int.class, string);
         return accountId;
     }
 }
