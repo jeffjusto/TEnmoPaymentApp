@@ -46,9 +46,9 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public void sendTransfer(Transfer transfer) {
-        String sql = "Insert into transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
-                "Values (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, transfer.getTransferTypeId(), transfer.getTransferStatusId(), transfer.getAccountFrom(),
+        String sql = "Insert into transfer (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
+                "Values (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, transfer.getTransferId(), transfer.getTransferTypeId(), transfer.getTransferStatusId(), transfer.getAccountFrom(),
                 transfer.getAccountTo(), transfer.getAmount());
         accountDao.addToBalanceByAccountId(transfer.getAccountTo(), transfer.getAmount());
         accountDao.subtractFromBalanceByAccountId(transfer.getAccountFrom(), transfer.getAmount());
@@ -56,9 +56,9 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public void requestTransfer(Transfer transfer) {
-        String sql = "Insert into transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
-                "Values (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, transfer.getTransferTypeId(), transfer.getTransferStatusId(), transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
+        String sql = "Insert into transfer (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
+                "Values (?. ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, transfer.getTransferId(), transfer.getTransferTypeId(), transfer.getTransferStatusId(), transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
         accountDao.addToBalanceByAccountId(transfer.getAccountFrom(), transfer.getAmount());
         accountDao.subtractFromBalanceByAccountId(transfer.getAccountTo(), transfer.getAmount());
     }
