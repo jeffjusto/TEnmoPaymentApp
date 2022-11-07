@@ -142,7 +142,8 @@ public class App {
         int userId = sc.nextInt();
         if (userId != currentUser.getUser().getId()) {
             BigDecimal amount = consoleService.promptForBigDecimal("Please choose an amount in decimal form (ex. 20.49):");
-            if(amount.compareTo(BigDecimal.valueOf(0))==1 ) {
+            BigDecimal balance = accountService.getBalance(userService.getAccountId(currentUser.getUser().getId()));
+            if(amount.compareTo(BigDecimal.valueOf(0))==1 && amount.compareTo(balance) == -1 ) {
                 Transfer transfer = new Transfer();
                 transfer.setTransferTypeId(2);
                 transfer.setAmount(amount);
@@ -152,7 +153,7 @@ public class App {
                 transferService.sendTransfer(transfer);
                 System.out.println("Transfer sent!");
             } else {
-                System.out.println("Invalid, amount must be greater than zero");
+                System.out.println("Invalid, amount must be greater than zero and con not exceed your balance: $" + balance);
             }
         } else {
             System.out.println("Invalid, you cannot send money to yourself");
