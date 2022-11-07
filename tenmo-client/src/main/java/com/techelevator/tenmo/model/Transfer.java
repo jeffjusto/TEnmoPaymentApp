@@ -65,13 +65,13 @@ public class Transfer {
 
     @Override
     public String toString(){
-        return "Transfer{" +
-                "transfer_id='" + transferTypeId + '\'' +
-                ", transfer_type_id='" + transferTypeId + '\'' +
-                ", transfer_status_id='" + transferStatusId + '\'' +
-                ", account_from='" + accountFrom + '\'' +
-                ", account_to='" + accountTo + '\'' +
-                ", amount='" + amount + '\'' +
-                '}';
+        return "[[Transfer:" +
+                " ID='" + transferTypeId + '\'' +
+                ", Transfer Type='" + transferTypeId + '\'' +
+                ", Transfer Status='" + transferStatusId + '\'' +
+                ", Account From='" + accountFrom + '\'' +
+                ", Account To='" + accountTo + '\'' +
+                ", Amount='" + amount + '\'' +
+                "]]";
     }
 }

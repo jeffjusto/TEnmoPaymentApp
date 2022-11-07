@@ -168,9 +168,30 @@ public class App {
         for(Map.Entry<Integer, String> user: users.entrySet()) {
             System.out.printf("%-5s %-20s \n", user.getKey(), user.getValue());
         }
+        System.out.println("Please choose one from user id's: ");
+        Scanner sc = new Scanner(System.in);
+        int userId = sc.nextInt();
+        if (userId != currentUser.getUser().getId()) {
+            BigDecimal amount = consoleService.promptForBigDecimal("Please choose an amount in decimal form (ex. 20.49):");
+            if(amount.compareTo(BigDecimal.valueOf(0))==1 ) {
+                Transfer transfer = new Transfer();
+                transfer.setTransferTypeId(1);
+                transfer.setAmount(amount);
+                transfer.setAccountTo(userService.getAccountId(userId));
+                transfer.setAccountFrom(userService.getAccountId(currentUser.getUser().getId()));
+                transfer.setTransferStatusId(2);
+                transferService.sendTransfer(transfer);
+                System.out.println("Transfer sent!");
+            } else {
+                System.out.println("Invalid, amount must be greater than zero");
+            }
+        } else {
+            System.out.println("Invalid, you cannot send money to yourself");
+        }
+    }
 		
 	}
 
 
 
-}
+
