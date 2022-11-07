@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 public class Transfer {
 
-    private int transferId;
     private int transferTypeId;
     private int transferStatusId;
     private int accountFrom;
@@ -66,13 +65,13 @@ public class Transfer {
 
     @Override
     public String toString(){
-        return "[[Transfer:" +
-                " ID='" + transferId + '\'' +
-                ", Transfer Type='" + transferTypeId + '\'' +
-                ", Transfer Status='" + transferStatusId + '\'' +
-                ", Account From='" + accountFrom + '\'' +
-                ", Account To='" + accountTo + '\'' +
-                ", Amount='" + amount + '\'' +
-                "]]";
+        return "Transfer{" +
+                "transfer_id='" + transferTypeId + '\'' +
+                ", transfer_type_id='" + transferTypeId + '\'' +
+                ", transfer_status_id='" + transferStatusId + '\'' +
+                ", account_from='" + accountFrom + '\'' +
+                ", account_to='" + accountTo + '\'' +
+                ", amount='" + amount + '\'' +
+                '}';
     }
 }
