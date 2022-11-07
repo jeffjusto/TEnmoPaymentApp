@@ -175,7 +175,7 @@ public class App {
             BigDecimal amount = consoleService.promptForBigDecimal("Please choose an amount in decimal form (ex. 20.49):");
             if(amount.compareTo(BigDecimal.valueOf(0))==1 ) {
                 Transfer transfer = new Transfer();
-                transfer.setTransferTypeId(2);
+                transfer.setTransferTypeId(1);
                 transfer.setAmount(amount);
                 transfer.setAccountTo(userService.getAccountId(currentUser.getUser().getId()));
                 transfer.setAccountFrom(userService.getAccountId(userId));
